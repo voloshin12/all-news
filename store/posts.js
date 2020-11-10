@@ -20,7 +20,7 @@ export const state = () => ({
 export const actions = {
     GET_ALL_POSTS: async ctx => {
         axios
-            .get(`${ENDPOINT_TOP_HEADLINES}`, {
+            .get(ENDPOINT_TOP_HEADLINES, {
                 params: {
                     language: ctx.state.language,
                     sources: ctx.state.sources_for_request,
@@ -40,7 +40,7 @@ export const actions = {
     },
     GET_TOP_NEWS: async (ctx, source) => {
         axios
-            .get(`${ENDPOINT_TOP_HEADLINES}`, {
+            .get(ENDPOINT_TOP_HEADLINES, {
                 params: {
                     sortBy: 'popularity',
                     sources: source,
@@ -64,7 +64,7 @@ export const actions = {
     },
     GET_SOURCES: async ctx => {
         await axios
-            .get(`${ENDPOINT_SOURCES}`, {
+            .get(ENDPOINT_SOURCES, {
                 params: {
                     apiKey: APIKEY,
                 },

@@ -5,13 +5,14 @@
                 <div class="mt-4 mb-4">
                     <div class="text-center m-2 h1"><router-link to="/" > All news </router-link></div>
                     <div class="main-content">
-                        <div class="sidebar-wrap">
+                        <div class="sidebar-wrap" v-bind:class="{ open: menuPosition }">
                             <div class="sidebar">
                                 <h5 class="mb-3">Top 10 news</h5>
                                 <div class="top-news-item" v-for="article in TOP_NEWS">
                                     <router-link :to="{path: article.title}" v-html="article.title"/>
                                 </div>
                             </div>
+                            <button @click="menuPosition = !menuPosition" class="open-menu"></button>
                         </div>
                         <div class="content" v-if="CURRENT_POST">
                             <h1 v-html="CURRENT_POST.title" class="mb-5" />
@@ -81,6 +82,9 @@ export default {
         this.GET_CURRENT_POST(this.$route.params.title);
         this.GET_TOP_NEWS(this.CURRENT_POST.source.id);
     },
+    data: () => ({
+        menuPosition: false
+    })
 };
 </script>
 
