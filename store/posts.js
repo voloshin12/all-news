@@ -1,7 +1,7 @@
 import axios from 'axios';
-const ENDPOINT_TOP_HEADLINES = 'https://newsapi.org/v2/everything?';
-const ENDPOINT_SOURCES = 'https://newsapi.org/v2/sources?';
-const APIKEY = '&apiKey=dd7e7b73ebb646ffae883f729437435d';
+const ENDPOINT_TOP_HEADLINES = 'https://newsapi.org/v2/everything';
+const ENDPOINT_SOURCES = 'https://newsapi.org/v2/sources';
+const APIKEY = '494d24a135cc4afcae7a4b628afb096e';
 
 export const state = () => ({
     posts: [],
@@ -20,15 +20,16 @@ export const state = () => ({
 export const actions = {
     GET_ALL_POSTS: async ctx => {
         axios
-            .get(
-                `${ENDPOINT_TOP_HEADLINES}language=${
-                    ctx.state.language
-                }&sources=${ctx.state.sources_for_request}&pageSize=${
-                    ctx.state.pageSize
-                }&sortBy=${ctx.state.sortBy}${
-                    ctx.state.searchQ ? '&q=' + ctx.state.searchQ : ''
-                }${APIKEY}`
-            )
+            .get(`${ENDPOINT_TOP_HEADLINES}`, {
+                params: {
+                    language: ctx.state.language,
+                    sources: ctx.state.sources_for_request,
+                    pageSize: ctx.state.pageSize,
+                    sortBy: ctx.state.sortBy,
+                    q: ctx.state.searchQ,
+                    apiKey: APIKEY,
+                },
+            })
             .then(response => {
                 ctx.commit('SET_ALL_POSTS', response.data.articles);
                 console.log(response);
@@ -39,9 +40,14 @@ export const actions = {
     },
     GET_TOP_NEWS: async (ctx, source) => {
         axios
-            .get(
-                `${ENDPOINT_TOP_HEADLINES}sortBy=popularity&sources=${source}&pageSize=10${APIKEY}`
-            )
+            .get(`${ENDPOINT_TOP_HEADLINES}`, {
+                params: {
+                    sortBy: 'popularity',
+                    sources: source,
+                    pageSize: 10,
+                    apiKey: APIKEY,
+                },
+            })
             .then(response => {
                 ctx.commit('SET_TOP_NEWS', response.data.articles);
             })
@@ -58,7 +64,11 @@ export const actions = {
     },
     GET_SOURCES: async ctx => {
         await axios
-            .get(`${ENDPOINT_SOURCES}${APIKEY}`)
+            .get(`${ENDPOINT_SOURCES}`, {
+                params: {
+                    apiKey: APIKEY,
+                },
+            })
             .then(response => {
                 ctx.commit('SET_SOURCES', response.data.sources);
                 ctx.commit('SET_LANGUAGES', response.data.sources);

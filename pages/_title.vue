@@ -3,7 +3,7 @@
         <main class="">
             <div class="main-container">
                 <div class="mt-4 mb-4">
-                    <h1 class="text-center m-2"><router-link to="/" > All news </router-link></h1>
+                    <div class="text-center m-2 h1"><router-link to="/" > All news </router-link></div>
                     <div class="main-content">
                         <div class="sidebar-wrap">
                             <div class="sidebar">
@@ -93,5 +93,10 @@ img {
 }
 .content{
     width: 100%;
+}
+@media screen and (max-width: 768px){
+    h1{
+        font-size: 1.5rem;
+    }
 }
 </style>
