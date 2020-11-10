@@ -4,6 +4,22 @@
   </div>
 </template>
 
+<script>
+import {mapActions} from 'vuex';
+export default {
+    methods: {
+        ...mapActions({
+            GET_ALL_POSTS: 'posts/GET_ALL_POSTS',
+            GET_SOURCES: 'posts/GET_SOURCES'
+        })
+    },
+    async created() {
+        await this.GET_SOURCES()
+        await this.GET_ALL_POSTS()
+    }
+}
+</script>
+
 <style>
 html {
   font-family:
