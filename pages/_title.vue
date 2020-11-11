@@ -84,7 +84,12 @@ export default {
     },
     data: () => ({
         menuPosition: false
-    })
+    }),
+    head() {
+        return {
+            title: this.CURRENT_POST.title
+        }
+    },
 };
 </script>
 
